@@ -1,4 +1,4 @@
-function deepValueSearch(value, obj) {
+function deepValueSearch(obj, value) {
   const paths = [];
   const executions = [];
   const visited = [];
