@@ -1,17 +1,16 @@
 function deepValueSearch(obj, value) {
   const paths = [];
   const executions = [];
-  const visited = [];
+  const visited = new Set(); // use a Set instead of an array for faster lookups
   const helper = (currentPath, currentObj) => {
-
     if (currentObj === value) {
       paths.push(currentPath);
       return;
     }
-    if (visited.includes(currentObj)) {
+    if (visited.has(currentObj)) { // use Set's has method instead of includes for faster lookups
       return;
     }
-    visited.push(currentObj);
+    visited.add(currentObj);
     if (Array.isArray(currentObj)) {
       for (let i = 0; i < currentObj.length; i++) {
         executions.push(() => helper(`${currentPath}/${i}`, currentObj[i]));
@@ -25,10 +24,6 @@ function deepValueSearch(obj, value) {
   }
  
   helper("", obj)
-  for (let e of executions) {
-    e();
-  }
-  for (let path of paths) {
-    console.log(path)
-  }
+  executions.forEach(e => e()); // use forEach instead of for loop for cleaner code
+  paths.forEach(path => console.log(path)); // use forEach instead of for loop for cleaner code
 }
