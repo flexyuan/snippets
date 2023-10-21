@@ -7,7 +7,8 @@ function deepValueSearch(obj, value) {
       paths.push(currentPath);
       return;
     }
-    if (visited.has(currentObj)) { // use Set's has method instead of includes for faster lookups
+    if (visited.has(currentObj)) {
+      // use Set's has method instead of includes for faster lookups
       return;
     }
     visited.add(currentObj);
@@ -16,14 +17,14 @@ function deepValueSearch(obj, value) {
         executions.push(() => helper(`${currentPath}/${i}`, currentObj[i]));
       }
     }
-    if (typeof currentObj === 'object' && currentObj !== null) {
+    if (typeof currentObj === "object" && currentObj !== null) {
       for (let [k, v] of Object.entries(currentObj)) {
         executions.push(() => helper(`${currentPath}/${k}`, v));
       }
     }
-  }
- 
-  helper("", obj)
-  executions.forEach(e => e()); // use forEach instead of for loop for cleaner code
-  paths.forEach(path => console.log(path)); // use forEach instead of for loop for cleaner code
+  };
+
+  helper("", obj);
+  executions.forEach((e) => e()); // use forEach instead of for loop for cleaner code
+  paths.forEach((path) => console.log(path)); // use forEach instead of for loop for cleaner code
 }
